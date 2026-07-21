@@ -12,10 +12,29 @@ import { detectMonorepo } from './monorepo-detector.js';
 import { buildManifest } from './manifest-builder.js';
 import { buildKnowledgeGraph } from './knowledge-graph-builder.js';
 
+export class RepoError extends Error {
+  constructor(message: string, public code: string) {
+    super(message);
+    this.name = 'RepoError';
+  }
+}
+
 export async function analyzeRepository(config: ProjectIntelligenceConfig): Promise<ProjectManifest> {
+  if (!config.repoUrl) {
+    throw new RepoError('Repository URL or path is required', 'MISSING_URL');
+  }
+
   const fetched = await fetchRepository(config.repoUrl, config.tempDir);
   try {
     const scan = await scanDirectory(fetched.path, config.excludePatterns);
+
+    if (scan.totalFiles === 0) {
+      throw new RepoError(
+        `No files found at "${config.repoUrl}". Make sure the path exists and is not empty.`,
+        'EMPTY_REPO',
+      );
+    }
+
     const repository = await buildRepositoryInfo(fetched.path, config.repoUrl);
 
     const [languages, frameworks, packageManager, importantFiles, monorepo] = await Promise.all([

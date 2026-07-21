@@ -1,4 +1,4 @@
-export { analyzeRepository, extractKnowledge } from './knowledge-extraction-engine.js';
+export { analyzeRepository, extractKnowledge, RepoError } from './knowledge-extraction-engine.js';
 export { buildKnowledgeGraph } from './knowledge-graph-builder.js';
 export { fetchRepository } from './repo-fetcher.js';
 export { scanDirectory } from './file-scanner.js';
