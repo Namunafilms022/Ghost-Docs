@@ -1,0 +1,13 @@
+{
+  "name": "@ghost-docs/github-app",
+  "version": "0.1.0-dev",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

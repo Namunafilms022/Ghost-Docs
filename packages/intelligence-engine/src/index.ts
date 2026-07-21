@@ -1,0 +1,13 @@
+export { analyzeRepository, extractKnowledge } from './knowledge-extraction-engine.js';
+export { buildKnowledgeGraph } from './knowledge-graph-builder.js';
+export { fetchRepository } from './repo-fetcher.js';
+export { scanDirectory } from './file-scanner.js';
+export { detectLanguages } from './language-detector.js';
+export { detectFrameworks } from './framework-detector.js';
+export { detectPackageManager } from './package-manager-detector.js';
+export { detectEntryPoints } from './entry-point-detector.js';
+export { buildDependencyGraph } from './dependency-graph.js';
+export { buildFolderTree, renderTreeAscii } from './folder-tree.js';
+export { classifyFiles } from './file-classifier.js';
+export { detectMonorepo } from './monorepo-detector.js';
+export { buildManifest, detectProjectType, detectTestFramework } from './manifest-builder.js';

@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ghost-docs/types": ["./packages/types/src"],
+      "@ghost-docs/types/*": ["./packages/types/src/*"],
+      "@ghost-docs/config": ["./packages/config/src"],
+      "@ghost-docs/config/*": ["./packages/config/src/*"],
+      "@ghost-docs/llm": ["./packages/llm/src"],
+      "@ghost-docs/llm/*": ["./packages/llm/src/*"],
+      "@ghost-docs/intelligence-engine": ["./packages/intelligence-engine/src"],
+      "@ghost-docs/intelligence-engine/*": ["./packages/intelligence-engine/src/*"],
+      "@ghost-docs/parser": ["./packages/parser/src"],
+      "@ghost-docs/parser/*": ["./packages/parser/src/*"],
+      "@ghost-docs/github": ["./packages/github/src"],
+      "@ghost-docs/github/*": ["./packages/github/src/*"],
+      "@ghost-docs/docs": ["./packages/docs/src"],
+      "@ghost-docs/docs/*": ["./packages/docs/src/*"],
+      "@ghost-docs/shared": ["./packages/shared/src"],
+      "@ghost-docs/shared/*": ["./packages/shared/src/*"]
+    }
+  },
+  "include": [
+    "apps/*/src/**/*.ts",
+    "packages/*/src/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "tests/fixtures"]
+}
