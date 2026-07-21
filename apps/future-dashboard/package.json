@@ -1,5 +1,5 @@
 {
-  "name": "@ghost-docs/github-app",
+  "name": "@ghost-docs/dashboard",
   "version": "0.1.0-dev",
   "type": "module",
   "private": true,
@@ -11,9 +11,10 @@
   },
   "dependencies": {
     "express": "^4.18.0",
-    "@ghost-docs/github": "workspace:*",
-    "@ghost-docs/sync-engine": "workspace:*",
-    "@ghost-docs/shared": "workspace:*"
+    "@ghost-docs/intelligence-engine": "workspace:*",
+    "@ghost-docs/reasoning-engine": "workspace:*",
+    "@ghost-docs/shared": "workspace:*",
+    "@ghost-docs/docs": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.4.0",

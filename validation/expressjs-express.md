@@ -1,4 +1,4 @@
-# Validation: Express.js
+# Validation: express
 
 **Repo:** `expressjs/express`
 **Date:** 2026-07-21
@@ -7,7 +7,17 @@
 
 | Command | Status | Notes |
 |---|---|---|
-| `explain` | ✅ | JavaScript, lib/ with application.js/express.js, mocha tests, 44 deps |
-| `reason "Where is entry point?"` | ✅ | 94% — index.js |
-| `reason "What test framework?"` | ✅ | 90% — mocha with test/ directory |
-| `pr --dry-run` | ✅ | CHANGELOG impact detected |
+| `explain` | ✅ | JavaScript, HTML, YAML, Markdown, CSS, 44 deps |
+| `reason "What does this do?"` | ✅ | 95% — Topic: Project Purpose | Confidence: 95% Unknown project. built with JavaScript. |
+| `reason "What test framework?"` | ✅ | 90% — Topic: Testing | Confidence: 90% Test command: `mocha --require test/support/env |
+| `reason "Where is entry point?"` | ✅ | 94% — Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - |
+| `pr --dry-run` | ⚠️ | No impacts (fresh clone) |
+
+## Details
+
+- **Languages:** JavaScript, HTML, YAML, Markdown, CSS
+- **Modules:** .github, examples, lib, test, root
+- **Entry Points:** index.js, test/app.js
+- **Auth:** Not detected
+- **Database:** connect-redis
+- **Dependencies:** 44
