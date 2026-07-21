@@ -1,22 +1,48 @@
 {
-  "name": "@ghost-docs/cli",
-  "version": "0.1.0-dev",
+  "name": "ghost-docs",
+  "version": "0.1.0",
   "type": "module",
+  "description": "AI Technical Writer that understands your codebase",
   "bin": {
-    "ghost-docs": "src/index.ts"
+    "ghost-docs": "dist/cli.cjs"
   },
   "scripts": {
     "dev": "tsx src/index.ts",
-    "build": "tsc",
-    "clean": "rm -rf dist"
+    "build": "tsc && node scripts/bundle.js",
+    "bundle": "node scripts/bundle.js",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "pnpm build"
   },
-  "dependencies": {
-    "commander": "^12.0.0",
-    "chalk": "^5.3.0"
+  "engines": {
+    "node": ">=20.0.0"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "documentation",
+    "code-analysis",
+    "technical-writer",
+    "cli",
+    "ai"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Namunafilms022/Ghost-Docs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Namunafilms022/Ghost-Docs/issues"
+  },
+  "homepage": "https://github.com/Namunafilms022/Ghost-Docs#readme",
   "devDependencies": {
     "typescript": "^5.4.0",
     "tsx": "^4.7.0",
-    "@types/node": "^20.0.0"
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.21.0",
+    "commander": "^12.0.0",
+    "chalk": "^5.3.0"
   }
 }

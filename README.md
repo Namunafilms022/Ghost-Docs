@@ -34,18 +34,28 @@ Ghost Docs analyzes any software project and produces structured documentation �
 └─────────────────────────────────────────────────────┘
 ```
 
+## Quick Start (No Install Required)
+
+```bash
+# Explain any repo (generates README + architecture diagram)
+npx ghost-docs explain ./my-project
+
+# Ask questions about any codebase
+npx ghost-docs reason ./my-project "What does this do?"
+npx ghost-docs reason ./my-project "How does authentication work?"
+
+# Preview documentation changes
+npx ghost-docs pr ./my-project
+```
+
 ## Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/ghost-docs/ghost-docs.git
-cd ghost-docs
+# Global install
+npm install -g ghost-docs
 
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm -r build
+# Or use directly with npx (no install needed)
+npx ghost-docs explain <repo-path>
 ```
 
 ## CLI Usage
@@ -58,14 +68,19 @@ ghost-docs explain ./my-project
 
 # Raw JSON knowledge graph
 ghost-docs explain ./my-project --json
+
+# Remote repository
+ghost-docs explain https://github.com/user/repo
 ```
 
 ### Reason about a repository
 
 ```bash
-ghost-docs reason ./my-project "How does authentication work?"
-ghost-docs reason ./my-project "Where is the database layer?"
-ghost-docs reason ./my-project "What testing framework is used?"
+ghost-docs reason ./my-project "What does this do?"
+ghost-docs reason ./my-project "Where is authentication?"
+ghost-docs reason ./my-project "What testing framework?"
+ghost-docs reason ./my-project "How to build?"
+ghost-docs reason ./my-project "What database?"
 ```
 
 ### Sync documentation
