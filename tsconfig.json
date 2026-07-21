@@ -29,7 +29,9 @@
       "@ghost-docs/docs": ["./packages/docs/src"],
       "@ghost-docs/docs/*": ["./packages/docs/src/*"],
       "@ghost-docs/shared": ["./packages/shared/src"],
-      "@ghost-docs/shared/*": ["./packages/shared/src/*"]
+      "@ghost-docs/shared/*": ["./packages/shared/src/*"],
+      "@ghost-docs/reasoning-engine": ["./packages/reasoning-engine/src"],
+      "@ghost-docs/reasoning-engine/*": ["./packages/reasoning-engine/src/*"]
     }
   },
   "include": [

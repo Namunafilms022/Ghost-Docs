@@ -108,6 +108,16 @@ importers:
         specifier: ^5.4.0
         version: 5.9.3
 
+  packages/reasoning-engine:
+    dependencies:
+      '@ghost-docs/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      typescript:
+        specifier: ^5.4.0
+        version: 5.9.3
+
   packages/shared:
     devDependencies:
       typescript:

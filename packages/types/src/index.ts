@@ -198,6 +198,33 @@ export interface MonorepoInfo {
   packageManager: string | null;
 }
 
+// ── Reasoned Answer Types (Phase 5) ──
+
+export type QuestionCategory =
+  | 'project-purpose'
+  | 'authentication'
+  | 'startup-flow'
+  | 'entry-points'
+  | 'api-locations'
+  | 'database-layer'
+  | 'testing'
+  | 'build-commands'
+  | 'folder-responsibilities'
+  | 'dependencies'
+  | 'architecture'
+  | 'unknown';
+
+export interface ReasonedAnswer {
+  question: string;
+  answer: string;
+  confidence: number;
+  supportingFiles: string[];
+  supportingModules: string[];
+  reasoningPath: string[];
+  transparency: string[];
+  category: QuestionCategory;
+}
+
 // ── Knowledge Graph Types (Phase 3) ──
 
 export interface KnowledgeGraph {

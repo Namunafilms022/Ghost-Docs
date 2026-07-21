@@ -12,6 +12,7 @@ export default defineConfig({
       '@ghost-docs/github': resolve(__dirname, 'packages/github/src'),
       '@ghost-docs/docs': resolve(__dirname, 'packages/docs/src'),
       '@ghost-docs/shared': resolve(__dirname, 'packages/shared/src'),
+      '@ghost-docs/reasoning-engine': resolve(__dirname, 'packages/reasoning-engine/src'),
     },
   },
   test: {
