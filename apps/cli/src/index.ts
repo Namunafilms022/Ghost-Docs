@@ -41,8 +41,9 @@ program
 
 program
   .command('pr')
-  .argument('<repo-url>', 'GitHub repository URL')
-  .description('Auto-generate a PR for stale documentation')
+  .argument('<repo-url>', 'GitHub repository URL or local path')
+  .option('--dry-run', 'Preview changes without creating PR (default)')
+  .description('Synchronize documentation with source code')
   .action(pr);
 
 program.parse();

@@ -13,6 +13,7 @@ export default defineConfig({
       '@ghost-docs/docs': resolve(__dirname, 'packages/docs/src'),
       '@ghost-docs/shared': resolve(__dirname, 'packages/shared/src'),
       '@ghost-docs/reasoning-engine': resolve(__dirname, 'packages/reasoning-engine/src'),
+      '@ghost-docs/sync-engine': resolve(__dirname, 'packages/sync-engine/src'),
     },
   },
   test: {

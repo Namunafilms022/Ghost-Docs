@@ -31,7 +31,9 @@
       "@ghost-docs/shared": ["./packages/shared/src"],
       "@ghost-docs/shared/*": ["./packages/shared/src/*"],
       "@ghost-docs/reasoning-engine": ["./packages/reasoning-engine/src"],
-      "@ghost-docs/reasoning-engine/*": ["./packages/reasoning-engine/src/*"]
+      "@ghost-docs/reasoning-engine/*": ["./packages/reasoning-engine/src/*"],
+      "@ghost-docs/sync-engine": ["./packages/sync-engine/src"],
+      "@ghost-docs/sync-engine/*": ["./packages/sync-engine/src/*"]
     }
   },
   "include": [

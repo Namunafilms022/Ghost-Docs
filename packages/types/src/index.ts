@@ -198,6 +198,76 @@ export interface MonorepoInfo {
   packageManager: string | null;
 }
 
+// ── Sync Engine Types (Phase 6) ──
+
+export interface ChangedFile {
+  path: string;
+  status: 'added' | 'modified' | 'deleted' | 'renamed';
+  additions: number;
+  deletions: number;
+}
+
+export interface ChangeAnalysis {
+  files: ChangedFile[];
+  summary: string;
+  hasBreaking: boolean;
+  hasApiChanges: boolean;
+  hasConfigChanges: boolean;
+  hasDepChanges: boolean;
+  hasSourceChanges: boolean;
+}
+
+export type DocType =
+  | 'README'
+  | 'CHANGELOG'
+  | 'API_REFERENCE'
+  | 'INSTALLATION_GUIDE'
+  | 'ARCHITECTURE'
+  | 'CONTRIBUTING'
+  | 'UNKNOWN';
+
+export interface DocumentationImpact {
+  docType: DocType;
+  filePath: string;
+  reason: string;
+  confidence: number;
+  suggestedAction: 'create' | 'update' | 'no-change';
+}
+
+export interface DocumentationPatch {
+  filePath: string;
+  originalContent: string;
+  patchedContent: string;
+  additions: number;
+  deletions: number;
+  affectedSections: string[];
+}
+
+export interface PullRequestData {
+  title: string;
+  body: string;
+  branch: string;
+  base: string;
+  files: string[];
+  confidence: number;
+}
+
+export interface SyncResult {
+  analysis: ChangeAnalysis;
+  impacts: DocumentationImpact[];
+  patches: DocumentationPatch[];
+  pullRequest?: PullRequestData;
+  confidence: number;
+}
+
+export interface SyncConfig {
+  repoPath: string;
+  repoUrl?: string;
+  githubToken?: string;
+  baseBranch?: string;
+  dryRun?: boolean;
+}
+
 // ── Context Types (Phase 5.5) ──
 
 export interface ContextSession {
