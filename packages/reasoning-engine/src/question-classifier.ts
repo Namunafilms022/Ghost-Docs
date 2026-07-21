@@ -7,7 +7,7 @@ interface ClassificationRule {
 }
 
 const RULES: ClassificationRule[] = [
-  { category: 'project-purpose', keywords: ['what does this repo', 'what does this project', 'what is this', 'project purpose', 'what does it do', 'overview', 'summary', 'about'], priority: 1 },
+  { category: 'project-purpose', keywords: ['what does this repo', 'what does this project', 'what does this do', 'what is this', 'project purpose', 'what does it do', 'overview', 'summary', 'about'], priority: 1 },
   { category: 'authentication', keywords: ['auth', 'login', 'sign in', 'signin', 'password', 'oauth', 'jwt', 'session', 'authentication', 'authorization'], priority: 2 },
   { category: 'startup-flow', keywords: ['startup', 'start', 'boot', 'launch', 'init', 'initialize', 'how does it start', 'execution flow', 'entry flow', 'bootstrap'], priority: 2 },
   { category: 'entry-points', keywords: ['entry point', 'first file', 'where to start', 'main file', 'which file', 'read first', 'starting point', 'begin'], priority: 2 },
