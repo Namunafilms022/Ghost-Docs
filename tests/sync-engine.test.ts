@@ -24,7 +24,7 @@ function createSampleKG(): KnowledgeGraph {
       { path: 'README.md', name: 'README.md', category: FileCategory.Readme },
       { path: 'package.json', name: 'package.json', category: FileCategory.PackageConfig },
     ],
-    dependencies: { total: 10, production: 7, development: 3 },
+    direct_dependencies: { total: 10, production: 7, development: 3 },
   };
 }
 
@@ -160,7 +160,7 @@ describe('Documentation Synchronization Engine', () => {
       const emptyKG: KnowledgeGraph = {
         project_summary: '', languages: [], modules: [], entry_points: [],
         authentication: 'Not detected', database: 'Not detected', apis: [], commands: [],
-        important_files: [], dependencies: { total: 0, production: 0, development: 0 },
+        important_files: [], direct_dependencies: { total: 0, production: 0, development: 0 },
       };
       const analysis: ChangeAnalysis = {
         files: [], summary: '', hasBreaking: false,

@@ -118,7 +118,7 @@ export class ReasoningEngine {
       }
 
       case 'dependencies':
-        return `Project has ${kg.dependencies.total} total dependencies: ${kg.dependencies.production} production, ${kg.dependencies.development} development.`;
+        return `Project has ${kg.direct_dependencies.total} total dependencies: ${kg.direct_dependencies.production} production, ${kg.direct_dependencies.development} development.`;
 
       case 'architecture': {
         const parts: string[] = ['Project architecture:'];

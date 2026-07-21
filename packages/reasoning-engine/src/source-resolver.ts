@@ -102,7 +102,7 @@ export class SourceResolver {
 
       case 'dependencies':
         for (const ep of kg.entry_points) files.add(ep.path);
-        path.push(`Total: ${kg.dependencies.total} (${kg.dependencies.production} prod, ${kg.dependencies.development} dev)`);
+        path.push(`Total: ${kg.direct_dependencies.total} (${kg.direct_dependencies.production} prod, ${kg.direct_dependencies.development} dev)`);
         break;
 
       case 'architecture':

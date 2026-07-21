@@ -75,6 +75,34 @@ function fromGoMod(content: string): { nodes: DependencyNode[]; edges: Dependenc
   return { nodes, edges };
 }
 
+async function scanWorkspacePackageJsons(files: ScannedFile[], rootPath: string): Promise<{ nodes: DependencyNode[]; edges: DependencyEdge[] }> {
+  const allNodes: DependencyNode[] = [];
+  const allEdges: DependencyEdge[] = [];
+  const addedNodes = new Set<string>();
+
+  const workspaceDirs = new Set<string>();
+  for (const f of files) {
+    const parts = f.relativePath.split('/');
+    if (parts.length >= 2 && f.name === 'package.json' && f.relativePath !== 'package.json') {
+      workspaceDirs.add(parts[0]);
+    }
+  }
+
+  for (const dir of workspaceDirs) {
+    const pkgPath = join(rootPath, dir, 'package.json');
+    const pkg = await tryReadJson(pkgPath);
+    if (pkg) {
+      const { nodes, edges } = fromPackageJson(pkg);
+      for (const node of nodes) {
+        if (!addedNodes.has(node.name)) { allNodes.push(node); addedNodes.add(node.name); }
+      }
+      allEdges.push(...edges);
+    }
+  }
+
+  return { nodes: allNodes, edges: allEdges };
+}
+
 export async function buildDependencyGraph(files: ScannedFile[], rootPath: string): Promise<DependencyGraph> {
   const allNodes: DependencyNode[] = [];
   const allEdges: DependencyEdge[] = [];
@@ -89,6 +117,12 @@ export async function buildDependencyGraph(files: ScannedFile[], rootPath: strin
       nodes.forEach((n) => addedNodes.add(n.name));
     }
   }
+
+  const workspace = await scanWorkspacePackageJsons(files, rootPath);
+  for (const node of workspace.nodes) {
+    if (!addedNodes.has(node.name)) { allNodes.push(node); addedNodes.add(node.name); }
+  }
+  allEdges.push(...workspace.edges);
 
   for (const [fileName, parser] of [
     ['requirements.txt', fromRequirementsTxt],

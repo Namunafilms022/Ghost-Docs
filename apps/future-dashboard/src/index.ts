@@ -55,7 +55,7 @@ app.post('/api/analyze', async (req, res) => {
         summary: knowledge.project_summary,
         languages: knowledge.languages,
         modules: knowledge.modules.map((m) => ({ name: m.name, path: m.path, type: m.type })),
-        dependencies: knowledge.dependencies,
+        dependencies: knowledge.direct_dependencies,
         entryPoints: knowledge.entry_points.map((e) => ({ path: e.path, type: e.type })),
       },
     });

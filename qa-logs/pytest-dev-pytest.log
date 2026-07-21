@@ -1,0 +1,16 @@
+============================================================
+QA Test: pytest-dev/pytest
+============================================================
+
+[PHASE 1] explain --json
+Time: 14.0s
+[REASON] What does this do?
+Time: 0.7s
+Confidence: 0%
+Answer: N/A
+
+[REASON] What test framework?
+Time: 60.1s
+
+[REASON] Where is entry point?
+Time: 60.1s

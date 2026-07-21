@@ -62,7 +62,7 @@ function createSampleKG(overrides?: Partial<KnowledgeGraph>): KnowledgeGraph {
       { path: 'Dockerfile', name: 'Dockerfile', category: FileCategory.Dockerfile },
       { path: '.github/workflows/ci.yml', name: 'ci.yml', category: FileCategory.CI },
     ],
-    dependencies: { total: 25, production: 18, development: 7 },
+    direct_dependencies: { total: 25, production: 18, development: 7 },
     ...overrides,
   };
 }
@@ -197,7 +197,7 @@ describe('Explain Repo Engine', () => {
         apis: [],
         commands: [],
         important_files: [],
-        dependencies: { total: 0, production: 0, development: 0 },
+        direct_dependencies: { total: 0, production: 0, development: 0 },
       };
       const diagram = generateMermaidDiagram(empty);
       expect(diagram).toContain('graph TD');

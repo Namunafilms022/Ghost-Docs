@@ -1,17 +1,40 @@
 import { extractKnowledge } from '@ghost-docs/intelligence-engine';
 import { RepositoryReasoner } from '@ghost-docs/reasoning-engine';
 import chalk from 'chalk';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
 
 let reasoner: RepositoryReasoner | null = null;
 let knowledge: Awaited<ReturnType<typeof extractKnowledge>> | null = null;
 let sessionId: string | null = null;
+
+async function getCachedKnowledge(repoUrl: string): Promise<Awaited<ReturnType<typeof extractKnowledge>>> {
+  const hash = createHash('sha256').update(repoUrl).digest('hex').slice(0, 16);
+  const cacheDir = join(tmpdir(), 'ghost-docs-cache');
+  const cacheFile = join(cacheDir, `${hash}.json`);
+
+  try {
+    const cached = await readFile(cacheFile, 'utf-8');
+    process.stdout.write(chalk.dim('  (using cached knowledge graph)\n'));
+    return JSON.parse(cached);
+  } catch {
+    const kg = await extractKnowledge({ repoUrl });
+    try {
+      await mkdir(cacheDir, { recursive: true });
+      await writeFile(cacheFile, JSON.stringify(kg));
+    } catch {}
+    return kg;
+  }
+}
 
 export async function reason(repoUrl: string, question: string): Promise<void> {
   try {
     if (!reasoner) {
       process.stdout.write(chalk.cyan('🧠 Loading knowledge graph...\n'));
       reasoner = new RepositoryReasoner();
-      knowledge = await extractKnowledge({ repoUrl });
+      knowledge = await getCachedKnowledge(repoUrl);
       sessionId = reasoner.createSession();
     }
 
@@ -58,6 +81,6 @@ export async function reason(repoUrl: string, question: string): Promise<void> {
     process.stdout.write('\n');
   } catch (error) {
     process.stderr.write(chalk.red(`\n✗ Error: ${error}\n`));
-    process.exit(1);
+    process.exit(2);
   }
 }

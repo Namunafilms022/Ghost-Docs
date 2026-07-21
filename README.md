@@ -1,5 +1,11 @@
 # 👻 Ghost Docs
 
+[![npm version](https://img.shields.io/npm/v/ghost-docs?color=blue&logo=npm)](https://www.npmjs.com/package/ghost-docs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/Tests-141%20passing-brightgreen)](https://github.com/Namunafilms022/Ghost-Docs)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.4%2B-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Namunafilms022/Ghost-Docs/pulls)
+
 **AI Technical Writer that understands your codebase.**
 
 Ghost Docs analyzes any software project and produces structured documentation — no LLM hallucinations, no guesswork. Everything is extracted from your actual source code.

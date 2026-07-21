@@ -1,0 +1,20 @@
+============================================================
+QA Test: jquery/jquery
+============================================================
+
+[PHASE 1] explain --json
+Time: 25.0s
+[REASON] What does this do?
+Time: 8.9s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Documentation project. built with JavaScript, HTML. managed by npm.
+
+[REASON] What test framework?
+Time: 10.4s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `npm run build:all && npm run lint && npm run test:browserless && npm run test:browser && npm run test:
+
+[REASON] Where is entry point?
+Time: 13.6s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `test/bundler_smoke_tests/src-pure-esm/main.js` — main (medium confid

@@ -21,7 +21,7 @@ function createSampleKG(): KnowledgeGraph {
     apis: [{ path: '/api', type: 'rest', framework: 'Express' }],
     commands: [{ name: 'test', command: 'npm test', description: 'Run tests' }],
     important_files: [{ path: 'package.json', name: 'package.json', category: FileCategory.PackageConfig }],
-    dependencies: { total: 10, production: 7, development: 3 },
+    direct_dependencies: { total: 10, production: 7, development: 3 },
   };
 }
 

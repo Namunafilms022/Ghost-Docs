@@ -26,10 +26,24 @@ function parseGitHubUrl(url: string): { owner: string; repo: string } {
 
 async function cloneRepo(url: string, targetDir: string): Promise<void> {
   const git = simpleGit();
-  await git.clone(url, targetDir, {
-    '--depth': '1',
-    '--single-branch': null,
-  });
+  try {
+    await git.clone(url, targetDir, {
+      '--depth': '1',
+      '--single-branch': null,
+    });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    if (msg.includes('Repository not found') || msg.includes('not found') || msg.includes('404')) {
+      throw new Error(`Repository not found at ${url}. Check the URL and ensure it exists.`);
+    }
+    if (msg.includes('could not read Username') || msg.includes('Authentication failed')) {
+      throw new Error(`Failed to clone ${url}. Try setting GITHUB_TOKEN for private repos or check network connectivity.`);
+    }
+    if (msg.includes('rate limit')) {
+      throw new Error(`GitHub rate limit exceeded. Set GITHUB_TOKEN or try again later.`);
+    }
+    throw err;
+  }
 }
 
 async function getDefaultBranch(localPath: string): Promise<string | null> {

@@ -1,0 +1,20 @@
+============================================================
+QA Test: sindresorhus/type-fest
+============================================================
+
+[PHASE 1] explain --json
+Time: 23.1s
+[REASON] What does this do?
+Time: 0.9s
+Confidence: 0%
+Answer: N/A
+
+[REASON] What test framework?
+Time: 0.7s
+Confidence: 0%
+Answer: N/A
+
+[REASON] Where is entry point?
+Time: 0.7s
+Confidence: 0%
+Answer: N/A

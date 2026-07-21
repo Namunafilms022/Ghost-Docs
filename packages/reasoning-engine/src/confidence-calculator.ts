@@ -88,8 +88,8 @@ export class ConfidenceCalculator {
         return { score: 0.1, factors };
 
       case 'dependencies':
-        if (kg.dependencies.total > 0) {
-          factors.push(`${kg.dependencies.total} dependencies`);
+        if (kg.direct_dependencies.total > 0) {
+          factors.push(`${kg.direct_dependencies.total} dependencies`);
           return { score: 0.96, factors };
         }
         factors.push('No dependency data');

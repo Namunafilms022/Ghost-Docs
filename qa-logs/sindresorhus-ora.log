@@ -1,0 +1,20 @@
+============================================================
+QA Test: sindresorhus/ora
+============================================================
+
+[PHASE 1] explain --json
+Time: 13.2s
+[REASON] What does this do?
+Time: 1.0s
+Confidence: 0%
+Answer: N/A
+
+[REASON] What test framework?
+Time: 0.7s
+Confidence: 0%
+Answer: N/A
+
+[REASON] Where is entry point?
+Time: 0.8s
+Confidence: 0%
+Answer: N/A

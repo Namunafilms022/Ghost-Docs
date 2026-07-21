@@ -1,0 +1,20 @@
+============================================================
+QA Test: mochajs/mocha
+============================================================
+
+[PHASE 1] explain --json
+Time: 28.2s
+[REASON] What does this do?
+Time: 14.7s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Cli Tool project. built with JavaScript, Markdown. managed by npm.
+
+[REASON] What test framework?
+Time: 13.3s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `run-s lint test-node test-browser` Test directories: `test/`
+
+[REASON] Where is entry point?
+Time: 13.3s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `test/jsapi/index.js` — main (medium confidence) - `test/browser/serv

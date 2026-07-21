@@ -6,6 +6,11 @@ export async function pr(repoUrl: string, options: { dryRun?: boolean }): Promis
     const match = repoUrl.match(/github\.com[:/]([\w.-]+)\/([\w.-]+?)(?:\.git)?$/);
     const localPath = match ? undefined : repoUrl;
 
+    if (match) {
+      process.stdout.write(chalk.yellow('⚠️  Remote repo detected. PR analysis requires git history.\n'));
+      process.stdout.write(chalk.yellow('   For best results, run `ghost-docs pr` on a local clone with full history.\n\n'));
+    }
+
     process.stdout.write(chalk.cyan('🔍 Analyzing git diff...\n'));
 
     const synchronizer = new DocumentationSynchronizer();
@@ -33,6 +38,6 @@ export async function pr(repoUrl: string, options: { dryRun?: boolean }): Promis
     }
   } catch (error) {
     process.stderr.write(chalk.red(`\n✗ Error: ${error}\n`));
-    process.exit(1);
+    process.exit(2);
   }
 }

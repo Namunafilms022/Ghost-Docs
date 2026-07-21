@@ -1,0 +1,14 @@
+============================================================
+QA Test: facebook/jest
+============================================================
+
+[PHASE 1] explain --json
+Time: 112.3s
+[REASON] What does this do?
+Time: 60.1s
+
+[REASON] What test framework?
+Time: 60.1s
+
+[REASON] Where is entry point?
+Time: 60.1s

@@ -189,6 +189,7 @@ export interface ProjectIntelligenceConfig {
   tempDir?: string;
   maxFileSize?: number;
   excludePatterns?: string[];
+  onProgress?: (phase: string, detail?: string) => void;
 }
 
 export interface MonorepoInfo {
@@ -334,7 +335,7 @@ export interface KnowledgeGraph {
   apis: APIEndpoint[];
   commands: CLICommand[];
   important_files: ImportantFileInfo[];
-  dependencies: DependencySummary;
+  direct_dependencies: DependencySummary;
 }
 
 export interface KnowledgeModule {

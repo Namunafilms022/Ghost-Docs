@@ -9,6 +9,8 @@ import type {
   FolderTreeNode,
 } from '@ghost-docs/types';
 import { FrameworkCategory, EntryPointType } from '@ghost-docs/types';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
 export function buildKnowledgeGraph(manifest: ProjectManifest): KnowledgeGraph {
   return {
@@ -21,16 +23,18 @@ export function buildKnowledgeGraph(manifest: ProjectManifest): KnowledgeGraph {
     apis: detectAPIs(manifest),
     commands: extractCommands(manifest),
     important_files: manifest.importantFiles,
-    dependencies: summarizeDependencies(manifest),
+    direct_dependencies: summarizeDependencies(manifest),
   };
 }
+
+const DOC_LANGS = new Set(['Markdown', 'YAML', 'TOML', 'HTML', 'CSS', 'Shell', 'Dockerfile', 'Makefile']);
 
 function buildProjectSummary(manifest: ProjectManifest): string {
   const parts: string[] = [];
   parts.push(`${capitalize(manifest.projectType.replace(/-/g, ' '))} project`);
 
   const mainLangs = manifest.languages
-    .filter((l) => l.percentage > 5)
+    .filter((l) => l.percentage > 5 && !DOC_LANGS.has(l.name))
     .map((l) => l.name);
   if (mainLangs.length > 0) {
     parts.push(`built with ${mainLangs.join(', ')}`);
@@ -51,7 +55,7 @@ function buildProjectSummary(manifest: ProjectManifest): string {
     parts.push('organized as a monorepo');
   }
 
-  const result = parts.join('. ') + '.';
+  const result = parts.join(', ') + '.';
   return result.charAt(0).toUpperCase() + result.slice(1);
 }
 
@@ -143,7 +147,7 @@ function collectKeyFiles(node: FolderTreeNode, manifest: ProjectManifest): strin
 
 function detectAuthentication(manifest: ProjectManifest): string {
   const authDeps = manifest.dependencyGraph.nodes.filter((n) =>
-    /(?:^|[-_@.])auth(?:$|[-_])|^next-auth$|^@auth\/|oauth|jwt|^passport|^jsonwebtoken|^jose|^clerk|^supabase-auth|^firebase-auth|^next-auth|^ Lucia|^kinde|^logto|^workos|^supertokens|^openid|^oidc|^saml|^casl|cancan|^pundit|^policy|^bcrypt|^argon2|^crypto$/i.test(n.name),
+    /^auth(?:$|[-_])|^@auth\//i.test(n.name) || /^next-auth$|^@auth\/|oauth|jwt|passport|jsonwebtoken|jose|clerk|supabase-auth|firebase-auth|lucia|kinde|logto|workos|supertokens|openid|oidc|saml|casl|cancan|pundit|policy|bcrypt|argon2/i.test(n.name) && !/author/i.test(n.name),
   );
   const authFiles = manifest.importantFiles.filter((f) =>
     /auth|login|signin|register|session|middleware|guard/i.test(f.path),
@@ -160,7 +164,7 @@ function detectAuthentication(manifest: ProjectManifest): string {
 
 function detectDatabaseLayer(manifest: ProjectManifest): string {
   const dbDeps = manifest.dependencyGraph.nodes.filter((n) =>
-    /prisma|typeorm|sequelize|mongoose|sql|postgres|mysql|mongo|redis|dynamo|firebase|supabase|sqlite|mariadb|couch|neo4j|drizzle|knex|better-sqlite/i.test(
+    /prisma|typeorm|sequelize|mongoose|sqlalchemy|psycopg2|asyncpg|aiosqlite|sqlite3|pymongo|motor|redis|dynamo|firebase|supabase|sqlite|mariadb|couch|neo4j|drizzle|knex|better-sqlite|gorm|sqlx|pgx|diesel|rusqlite|mongodb|postgres|mysql|mongo/i.test(
       n.name,
     ),
   );

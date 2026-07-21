@@ -22,14 +22,24 @@ export function detectProjectType(languages: LanguageInfo[], frameworks: Framewo
   if (entryPoints.some((e) => e.type === EntryPointType.CLI)) return 'cli-tool';
   if (langs.includes('dart') || langs.includes('kotlin') || langs.includes('swift')) return 'mobile-app';
   if (langs.includes('c#')) return 'desktop-app';
-  if (cats.includes(FileCategory.Documentation)) return 'documentation';
-  if (cats.includes(FileCategory.Readme) && languages.length <= 1 && langs.includes('markdown')) return 'documentation';
+
+  const codeLangs = languages.filter((l) => !['Markdown', 'YAML', 'TOML', 'HTML', 'CSS', 'Shell', 'Dockerfile', 'Makefile'].includes(l.name));
+  const totalLangPct = codeLangs.reduce((s, l) => s + l.percentage, 0);
+
+  if (cats.includes(FileCategory.Documentation) && totalLangPct < 30) return 'documentation';
+  if (cats.includes(FileCategory.Readme) && langs.length <= 1 && codeLangs.length === 0) return 'documentation';
+  if (codeLangs.length > 0) return 'library';
   return 'unknown';
 }
 
-export function detectTestFramework(frameworks: FrameworkInfo[], packageManager: PackageManagerInfo | null): string | null {
+export function detectTestFramework(frameworks: FrameworkInfo[], packageManager: PackageManagerInfo | null, dependencyGraph?: DependencyGraph): string | null {
   const test = frameworks.filter((f) => f.category === FrameworkCategory.Testing);
   if (test.length > 0) return test[0].name;
+  if (dependencyGraph) {
+    const testDeps = ['jest', 'mocha', 'vitest', 'ava', 'tape', 'jasmine', 'karma', 'cypress', 'playwright', 'pytest', 'unittest', 'rspec', 'minitest', 'gotest', 'cargo-test'];
+    const found = dependencyGraph.nodes.find((n) => testDeps.includes(n.name.toLowerCase()));
+    if (found) return found.name;
+  }
   return packageManager?.testCommand ? 'custom (via package manager)' : null;
 }
 
@@ -43,7 +53,7 @@ export function buildManifest(input: ManifestInput): ProjectManifest {
     entryPoints: input.entryPoints,
     importantFiles: input.importantFiles,
     projectType: detectProjectType(input.languages, input.frameworks, input.entryPoints, input.importantFiles, input.isMonorepo),
-    testFramework: detectTestFramework(input.frameworks, input.packageManager),
+    testFramework: detectTestFramework(input.frameworks, input.packageManager, input.dependencyGraph),
     hasDocker: input.importantFiles.some((f) => f.category === FileCategory.Dockerfile || f.category === FileCategory.DockerCompose),
     hasCI: input.importantFiles.some((f) => f.category === FileCategory.CI),
     isMonorepo: input.isMonorepo,

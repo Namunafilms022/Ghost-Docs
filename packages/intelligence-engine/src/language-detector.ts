@@ -72,7 +72,22 @@ export function detectLanguages(files: ScannedFile[]): LanguageInfo[] {
   }
 
   const total = Array.from(extCounts.values()).reduce((sum, v) => sum + v.count, 0);
-  if (total === 0) return [];
+  if (total === 0) {
+    const noExtFiles = files.filter((f) => !f.extension && f.name.includes('.'));
+    if (noExtFiles.length > 0) {
+      const byName: Record<string, number> = {};
+      for (const f of noExtFiles) {
+        const ext = f.name.split('.').pop()?.toLowerCase() || '';
+        if (ext && ext.length <= 4) {
+          byName[ext] = (byName[ext] || 0) + 1;
+        }
+      }
+      for (const [ext, count] of Object.entries(byName)) {
+        extCounts.set(ext, { count, lang: ext });
+      }
+    }
+  }
+  if (extCounts.size === 0) return [];
 
   return Array.from(extCounts.entries())
     .map(([name, info]) => ({

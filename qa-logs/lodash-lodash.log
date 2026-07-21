@@ -1,0 +1,20 @@
+============================================================
+QA Test: lodash/lodash
+============================================================
+
+[PHASE 1] explain --json
+Time: 18.6s
+[REASON] What does this do?
+Time: 1.0s
+Confidence: 0%
+Answer: N/A
+
+[REASON] What test framework?
+Time: 8.0s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `npm run test:main && npm run test:fp` Test directories: `test/`
+
+[REASON] Where is entry point?
+Time: 10.0s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `lodash.js` — main (high confidence)

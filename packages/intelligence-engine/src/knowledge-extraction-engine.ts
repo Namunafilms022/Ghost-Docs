@@ -20,12 +20,15 @@ export class RepoError extends Error {
 }
 
 export async function analyzeRepository(config: ProjectIntelligenceConfig): Promise<ProjectManifest> {
+  const progress = config.onProgress ?? (() => {});
   if (!config.repoUrl) {
     throw new RepoError('Repository URL or path is required', 'MISSING_URL');
   }
 
+  progress('fetching', config.repoUrl);
   const fetched = await fetchRepository(config.repoUrl, config.tempDir);
   try {
+    progress('scanning');
     const scan = await scanDirectory(fetched.path, config.excludePatterns);
 
     if (scan.totalFiles === 0) {
@@ -35,8 +38,10 @@ export async function analyzeRepository(config: ProjectIntelligenceConfig): Prom
       );
     }
 
+    progress('building repo info');
     const repository = await buildRepositoryInfo(fetched.path, config.repoUrl);
 
+    progress('detecting features');
     const [languages, frameworks, packageManager, importantFiles, monorepo] = await Promise.all([
       Promise.resolve(detectLanguages(scan.files)),
       detectFrameworks(scan.files, fetched.path),
@@ -45,10 +50,16 @@ export async function analyzeRepository(config: ProjectIntelligenceConfig): Prom
       detectMonorepo(scan.files, fetched.path),
     ]);
 
+    progress('detecting entry points');
     const entryPoints = await detectEntryPoints(scan.files, fetched.path, packageManager?.name);
+
+    progress('building dependency graph');
     const dependencyGraph = await buildDependencyGraph(scan.files, fetched.path);
+
+    progress('building folder tree');
     const folderTree = buildFolderTree(scan.files, fetched.path);
 
+    progress('building manifest');
     return buildManifest({
       repository, files: scan.files, languages, frameworks, packageManager,
       entryPoints, dependencyGraph, folderTree, importantFiles,

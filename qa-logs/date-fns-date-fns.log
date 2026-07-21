@@ -1,0 +1,20 @@
+============================================================
+QA Test: date-fns/date-fns
+============================================================
+
+[PHASE 1] explain --json
+Time: 32.1s
+[REASON] What does this do?
+Time: 36.4s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Monorepo project. built with TypeScript, Markdown. using Vitest. managed by yarn. organized as a monorepo.
+
+[REASON] What test framework?
+Time: 35.4s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `yarn test`
+
+[REASON] Where is entry point?
+Time: 39.5s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `pkgs/utc/src/utc/index.ts` — main (medium confidence) - `pkgs/utc/sr

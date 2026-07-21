@@ -1,0 +1,20 @@
+============================================================
+QA Test: nestjs/nest
+============================================================
+
+[PHASE 1] explain --json
+Time: 31.5s
+[REASON] What does this do?
+Time: 0.8s
+Confidence: 0%
+Answer: N/A
+
+[REASON] What test framework?
+Time: 0.9s
+Confidence: 0%
+Answer: N/A
+
+[REASON] Where is entry point?
+Time: 0.9s
+Confidence: 0%
+Answer: N/A

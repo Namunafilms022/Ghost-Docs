@@ -241,9 +241,9 @@ describe('KnowledgeGraph Builder', () => {
     it('summarizes dependency counts', () => {
       const manifest = createMinimalManifest();
       const kg = buildKnowledgeGraph(manifest);
-      expect(kg.dependencies.total).toBe(5);
-      expect(kg.dependencies.production).toBe(4);
-      expect(kg.dependencies.development).toBe(1);
+      expect(kg.direct_dependencies.total).toBe(5);
+      expect(kg.direct_dependencies.production).toBe(4);
+      expect(kg.direct_dependencies.development).toBe(1);
     });
   });
 
@@ -259,7 +259,7 @@ describe('KnowledgeGraph Builder', () => {
       expect(kg.apis).toBeDefined();
       expect(kg.commands.length).toBeGreaterThan(0);
       expect(kg.important_files.length).toBeGreaterThan(0);
-      expect(kg.dependencies.total).toBeGreaterThan(0);
+      expect(kg.direct_dependencies.total).toBeGreaterThan(0);
       expect(typeof kg.authentication).toBe('string');
       expect(typeof kg.database).toBe('string');
 

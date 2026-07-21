@@ -1,0 +1,20 @@
+============================================================
+QA Test: gulpjs/gulp
+============================================================
+
+[PHASE 1] explain --json
+Time: 28.2s
+[REASON] What does this do?
+Time: 5.1s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Cli Tool project. built with Markdown, JavaScript. managed by npm.
+
+[REASON] What test framework?
+Time: 5.1s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `nyc mocha --async-only` Test directories: `test/`
+
+[REASON] Where is entry point?
+Time: 5.4s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `index.js` — main (high confidence) - `index.mjs` — main (high confid

@@ -1,0 +1,20 @@
+============================================================
+QA Test: graphql/graphql-js
+============================================================
+
+[PHASE 1] explain --json
+Time: 40.4s
+[REASON] What does this do?
+Time: 14.3s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Web Application project. built with TypeScript, Markdown, JavaScript. using Next.js, Tailwind CSS. managed by
+
+[REASON] What test framework?
+Time: 17.7s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `npm run lint && npm run check && npm run testonly:cover && npm run prettier:check && npm run prettier:
+
+[REASON] Where is entry point?
+Time: 12.2s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `website/icons/index.ts` — main (medium confidence) - `resources/esli

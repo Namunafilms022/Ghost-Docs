@@ -1,0 +1,20 @@
+============================================================
+QA Test: socketio/socket.io
+============================================================
+
+[PHASE 1] explain --json
+Time: 48.6s
+[REASON] What does this do?
+Time: 31.6s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Monorepo project. built with JavaScript, TypeScript, Markdown, HTML. using Next.js, Vue.js. managed by yarn. 
+
+[REASON] What test framework?
+Time: 24.6s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `yarn test`
+
+[REASON] Where is entry point?
+Time: 31.4s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `packages/socket.io-redis-streams-emitter/test/index.ts` — main (medi

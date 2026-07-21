@@ -1,0 +1,20 @@
+============================================================
+QA Test: axios/axios
+============================================================
+
+[PHASE 1] explain --json
+Time: 12.6s
+[REASON] What does this do?
+Time: 10.2s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Documentation project. built with JavaScript, Markdown, TypeScript. using Vitest. managed by npm.
+
+[REASON] What test framework?
+Time: 10.1s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `npm run test:vitest` Test directories: `tests/`
+
+[REASON] Where is entry point?
+Time: 11.2s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `docs/.vitepress/theme/index.ts` — main (medium confidence) - `lib/pl

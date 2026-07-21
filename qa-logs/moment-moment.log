@@ -1,0 +1,20 @@
+============================================================
+QA Test: moment/moment
+============================================================
+
+[PHASE 1] explain --json
+Time: 15.9s
+[REASON] What does this do?
+Time: 14.4s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Documentation project. built with JavaScript. managed by npm.
+
+[REASON] What test framework?
+Time: 14.2s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `grunt test`
+
+[REASON] Where is entry point?
+Time: 11.8s
+Confidence: 10%
+Answer: Topic: Entry Points | Confidence: 10% No entry points detected.

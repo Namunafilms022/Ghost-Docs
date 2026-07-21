@@ -56,13 +56,35 @@ export async function detectEntryPoints(
     const pkg = await tryReadJson(join(rootPath, 'package.json'));
     if (pkg) {
       if (pkg.main && typeof pkg.main === 'string') {
-        const mainFile = files.find((f) => f.relativePath === pkg.main || f.relativePath === `./${pkg.main}`);
-        if (mainFile) entryPoints.push({ path: mainFile.relativePath, type: EntryPointType.Main, confidence: EntryPointConfidence.High, reason: 'Defined as "main" in package.json' });
+        const mainCandidates = [pkg.main, `./${pkg.main}`, `src/${pkg.main}`, `lib/${pkg.main}`];
+        for (const candidate of mainCandidates) {
+          const mainFile = files.find((f) => f.relativePath === candidate);
+          if (mainFile) {
+            entryPoints.push({ path: mainFile.relativePath, type: EntryPointType.Main, confidence: EntryPointConfidence.High, reason: 'Defined as "main" in package.json' });
+            break;
+          }
+        }
       }
-      if (pkg.bin && typeof pkg.bin === 'object') {
-        for (const binPath of Object.values(pkg.bin as Record<string, string>)) {
-          const binFile = files.find((f) => f.relativePath === binPath);
+      if (pkg.exports && typeof pkg.exports === 'object') {
+        for (const [key, val] of Object.entries(pkg.exports as Record<string, unknown>)) {
+          if (key === '.' || key.startsWith('./')) {
+            const exportPath = key === '.' ? (typeof val === 'object' ? (val as Record<string, string>)['import'] || (val as Record<string, string>)['default'] : val) : key;
+            if (typeof exportPath === 'string') {
+              const epFile = files.find((f) => f.relativePath === exportPath || f.relativePath === `./${exportPath}`);
+              if (epFile) entryPoints.push({ path: epFile.relativePath, type: EntryPointType.Main, confidence: EntryPointConfidence.High, reason: 'Defined in "exports" in package.json' });
+            }
+          }
+        }
+      }
+      if (pkg.bin) {
+        if (typeof pkg.bin === 'string') {
+          const binFile = files.find((f) => f.relativePath === pkg.bin);
           if (binFile) entryPoints.push({ path: binFile.relativePath, type: EntryPointType.CLI, confidence: EntryPointConfidence.High, reason: 'Defined as "bin" in package.json' });
+        } else if (typeof pkg.bin === 'object') {
+          for (const binPath of Object.values(pkg.bin as Record<string, string>)) {
+            const binFile = files.find((f) => f.relativePath === binPath);
+            if (binFile) entryPoints.push({ path: binFile.relativePath, type: EntryPointType.CLI, confidence: EntryPointConfidence.High, reason: 'Defined as "bin" in package.json' });
+          }
         }
       }
     }

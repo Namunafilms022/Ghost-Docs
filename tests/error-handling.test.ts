@@ -36,6 +36,6 @@ describe('Error Handling', () => {
     const kg = await extractKnowledge({ repoUrl: FIXTURE_PATH, tempDir: '/tmp' });
     expect(kg.project_summary).toBeTruthy();
     expect(kg.entry_points).toBeDefined();
-    expect(kg.dependencies).toBeDefined();
+    expect(kg.direct_dependencies).toBeDefined();
   });
 });

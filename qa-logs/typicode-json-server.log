@@ -1,0 +1,20 @@
+============================================================
+QA Test: typicode/json-server
+============================================================
+
+[PHASE 1] explain --json
+Time: 5.8s
+[REASON] What does this do?
+Time: 5.8s
+Confidence: 95%
+Answer: Topic: Project Purpose | Confidence: 95% Unknown project. built with TypeScript, YAML, HTML. managed by yarn.
+
+[REASON] What test framework?
+Time: 4.8s
+Confidence: 90%
+Answer: Topic: Testing | Confidence: 90% Test command: `node --experimental-strip-types --test src/*.test.ts`
+
+[REASON] Where is entry point?
+Time: 5.2s
+Confidence: 94%
+Answer: Topic: Entry Points | Confidence: 94% Entry points (highest confidence first): - `src/app.ts` — server (medium confidence)

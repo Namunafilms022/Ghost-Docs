@@ -50,8 +50,8 @@ function generateTechStack(kg: KnowledgeGraph): string {
     rows.push(`| Language | ${kg.languages.join(', ')} |`);
   }
 
-  if (kg.dependencies.total > 0) {
-    rows.push(`| Dependencies | ${kg.dependencies.total} total (${kg.dependencies.production} production, ${kg.dependencies.development} dev) |`);
+  if (kg.direct_dependencies.total > 0) {
+    rows.push(`| Dependencies | ${kg.direct_dependencies.total} total (${kg.direct_dependencies.production} production, ${kg.direct_dependencies.development} dev) |`);
   }
 
   if (kg.database !== 'Not detected') {

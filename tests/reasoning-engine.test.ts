@@ -36,7 +36,7 @@ function createSampleKG(): KnowledgeGraph {
       { path: 'package.json', name: 'package.json', category: FileCategory.PackageConfig },
       { path: 'Dockerfile', name: 'Dockerfile', category: FileCategory.Dockerfile },
     ],
-    dependencies: { total: 24, production: 18, development: 6 },
+    direct_dependencies: { total: 24, production: 18, development: 6 },
   };
 }
 

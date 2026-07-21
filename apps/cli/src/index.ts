@@ -7,6 +7,11 @@ import { explain } from './commands/explain.js';
 import { reason } from './commands/reason.js';
 import { pr } from './commands/pr.js';
 
+const stdoutHandle = (process.stdout as unknown as { _handle?: { setBlocking?: (b: boolean) => void } })._handle;
+if (stdoutHandle?.setBlocking) {
+  stdoutHandle.setBlocking(true);
+}
+
 let pkg: { version: string };
 try {
   const metaUrl = typeof import.meta !== 'undefined' && import.meta.url
@@ -31,6 +36,7 @@ program
   .argument('<repo-url>', 'GitHub repository URL or local path')
   .option('--json', 'Output raw knowledge graph JSON')
   .option('--markdown', 'Output formatted markdown report (default)')
+  .option('--timeout <seconds>', 'Max time in seconds for repo analysis', parseInt)
   .description('Explain a repository')
   .action(explain);
 
@@ -38,6 +44,7 @@ program
   .command('reason')
   .argument('<repo-url>', 'GitHub repository URL or local path')
   .argument('<question>', 'Question about the repository')
+  .option('--timeout <seconds>', 'Max time in seconds for repo analysis', parseInt)
   .description('Reason about a repository (Repository Reasoning Engine)')
   .action(reason);
 
