@@ -198,6 +198,32 @@ export interface MonorepoInfo {
   packageManager: string | null;
 }
 
+// ── Context Types (Phase 5.5) ──
+
+export interface ContextSession {
+  sessionId: string;
+  currentTopic: QuestionCategory | null;
+  currentModule: string | null;
+  currentFile: string | null;
+  previousQuestions: string[];
+  previousAnswers: string[];
+  reasoningPath: string[];
+  confidenceHistory: number[];
+  createdAt: number;
+  lastActivityAt: number;
+}
+
+export interface ContextInfo {
+  sessionId: string;
+  currentTopic: QuestionCategory | null;
+  currentTopicLabel: string;
+  currentModule: string | null;
+  currentFile: string | null;
+  topicDerivedFrom: 'question' | 'context';
+  isFollowUp: boolean;
+  referencedPreviousQuestion: string | null;
+}
+
 // ── Reasoned Answer Types (Phase 5) ──
 
 export type QuestionCategory =
@@ -223,6 +249,7 @@ export interface ReasonedAnswer {
   reasoningPath: string[];
   transparency: string[];
   category: QuestionCategory;
+  context?: ContextInfo;
 }
 
 // ── Knowledge Graph Types (Phase 3) ──

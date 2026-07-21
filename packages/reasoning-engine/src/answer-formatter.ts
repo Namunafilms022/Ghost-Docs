@@ -1,9 +1,9 @@
-import type { ReasonedAnswer, QuestionCategory } from '@ghost-docs/types';
+import type { ReasonedAnswer, QuestionCategory, ContextInfo } from '@ghost-docs/types';
 import type { ReasoningResult } from './reasoning-engine.js';
 
 export class AnswerFormatter {
-  format(result: ReasoningResult): ReasonedAnswer {
-    const transparency = this.buildTransparency(result);
+  format(result: ReasoningResult, context?: ContextInfo): ReasonedAnswer {
+    const transparency = this.buildTransparency(result, context);
     return {
       question: '',
       answer: result.answer,
@@ -13,11 +13,24 @@ export class AnswerFormatter {
       reasoningPath: result.reasoningPath,
       transparency,
       category: result.category,
+      ...(context ? { context } : {}),
     };
   }
 
-  private buildTransparency(result: ReasoningResult): string[] {
+  private buildTransparency(result: ReasoningResult, context?: ContextInfo): string[] {
     const lines: string[] = [];
+
+    if (context?.isFollowUp) {
+      lines.push(`📎 Follow-up question detected`);
+      if (context.topicDerivedFrom === 'context') {
+        lines.push(`🗂 Topic inherited from context: ${context.currentTopicLabel}`);
+      }
+      if (context.referencedPreviousQuestion) {
+        lines.push(`🔗 References previous question: "${context.referencedPreviousQuestion}"`);
+      }
+      lines.push('');
+    }
+
     lines.push(`I answered this because I detected:`);
 
     for (const factor of result.confidenceFactors) {
@@ -38,6 +51,13 @@ export class AnswerFormatter {
       for (const m of result.supportingModules) {
         lines.push(`- ${m}`);
       }
+    }
+
+    if (context) {
+      lines.push('');
+      lines.push(`Current context: ${context.currentTopicLabel}`);
+      if (context.currentModule) lines.push(`Active module: ${context.currentModule}`);
+      if (context.currentFile) lines.push(`Active file: ${context.currentFile}`);
     }
 
     if (result.confidence < 0.5) {

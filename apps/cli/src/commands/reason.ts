@@ -1,15 +1,32 @@
 import { extractKnowledge } from '@ghost-docs/intelligence-engine';
 import { RepositoryReasoner } from '@ghost-docs/reasoning-engine';
 
+let reasoner: RepositoryReasoner | null = null;
+let knowledge: Awaited<ReturnType<typeof extractKnowledge>> | null = null;
+let sessionId: string | null = null;
+
 export async function reason(repoUrl: string, question: string): Promise<void> {
   try {
-    const knowledge = await extractKnowledge({ repoUrl });
-    const reasoner = new RepositoryReasoner();
-    const answer = reasoner.ask(knowledge, question);
+    if (!reasoner) {
+      reasoner = new RepositoryReasoner();
+      knowledge = await extractKnowledge({ repoUrl });
+      sessionId = reasoner.createSession();
+    }
 
-    process.stdout.write(`\nQuestion: ${answer.question}\n`);
-    process.stdout.write(`Category: ${answer.category}\n`);
-    process.stdout.write(`Confidence: ${(answer.confidence * 100).toFixed(0)}%\n\n`);
+    const answer = reasoner.ask(knowledge!, question, sessionId!);
+
+    if (answer.context) {
+      process.stdout.write(`\n`);
+      if (answer.context.isFollowUp) {
+        process.stdout.write(`📎 Follow-up | `);
+      }
+      process.stdout.write(`Topic: ${answer.context.currentTopicLabel}`);
+      process.stdout.write(` | Confidence: ${(answer.confidence * 100).toFixed(0)}%\n\n`);
+    } else {
+      process.stdout.write(`\nCategory: ${answer.category}`);
+      process.stdout.write(` | Confidence: ${(answer.confidence * 100).toFixed(0)}%\n\n`);
+    }
+
     process.stdout.write(`${answer.answer}\n\n`);
 
     if (answer.supportingFiles.length > 0) {

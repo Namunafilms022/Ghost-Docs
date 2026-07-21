@@ -19,7 +19,11 @@ export class ReasoningEngine {
   private sourceResolver = new SourceResolver();
 
   reason(kg: KnowledgeGraph, question: string): ReasoningResult {
-    const { category, score: classificationScore } = this.classifier.classify(question);
+    const { category } = this.classifier.classify(question);
+    return this.reasonWithCategory(kg, question, category);
+  }
+
+  reasonWithCategory(kg: KnowledgeGraph, question: string, category: QuestionCategory): ReasoningResult {
     const confidence = this.confidenceCalc.calculate(kg, category);
     const sources = this.sourceResolver.resolve(kg, category);
     const answer = this.buildAnswer(kg, category, question);
