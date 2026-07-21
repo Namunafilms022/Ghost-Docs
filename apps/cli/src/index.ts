@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { explain } from './commands/explain.js';
-import { ask } from './commands/ask.js';
+import { reason } from './commands/reason.js';
 import { pr } from './commands/pr.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,16 +26,18 @@ program
 
 program
   .command('explain')
-  .argument('<repo-url>', 'GitHub repository URL')
-  .description('Explain a repository in 30 seconds')
+  .argument('<repo-url>', 'GitHub repository URL or local path')
+  .option('--json', 'Output raw knowledge graph JSON')
+  .option('--markdown', 'Output formatted markdown report (default)')
+  .description('Explain a repository')
   .action(explain);
 
 program
-  .command('ask')
-  .argument('<repo-url>', 'GitHub repository URL')
+  .command('reason')
+  .argument('<repo-url>', 'GitHub repository URL or local path')
   .argument('<question>', 'Question about the repository')
-  .description('Ask a question about a repository')
-  .action(ask);
+  .description('Reason about a repository (Repository Reasoning Engine)')
+  .action(reason);
 
 program
   .command('pr')
