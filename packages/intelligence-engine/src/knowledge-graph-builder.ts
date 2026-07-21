@@ -143,7 +143,7 @@ function collectKeyFiles(node: FolderTreeNode, manifest: ProjectManifest): strin
 
 function detectAuthentication(manifest: ProjectManifest): string {
   const authDeps = manifest.dependencyGraph.nodes.filter((n) =>
-    /auth|oauth|jwt|session|passport|guard|middleware|token|casl|cancan|pundit|policy/i.test(n.name),
+    /(?:^|[-_@.])auth(?:$|[-_])|^next-auth$|^@auth\/|oauth|jwt|^passport|^jsonwebtoken|^jose|^clerk|^supabase-auth|^firebase-auth|^next-auth|^ Lucia|^kinde|^logto|^workos|^supertokens|^openid|^oidc|^saml|^casl|cancan|^pundit|^policy|^bcrypt|^argon2|^crypto$/i.test(n.name),
   );
   const authFiles = manifest.importantFiles.filter((f) =>
     /auth|login|signin|register|session|middleware|guard/i.test(f.path),
